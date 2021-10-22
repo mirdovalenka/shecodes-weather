@@ -35,7 +35,7 @@
       }
       h3 {
         font-weight: bold;
-        padding-top: 50px;
+        padding-top: 60px;
         text-align: center;
       }
       h4 {
@@ -61,7 +61,7 @@
       hr {
         background: black;
         border: 2px solid black;
-        margin: 50px auto;
+        margin: 20px auto;
 
         width: 1000px;
       }
@@ -82,7 +82,7 @@
       .mainPanel {
         margin: 0 auto;
         position: relative;
-        bottom: 20px;
+        bottom: 40px;
         width: 950px;
       }
 
@@ -90,12 +90,13 @@
         font-size: 20px;
         line-height: 48px;
         position: relative;
-        top: 40px;
-        left: 60px;
+        top: 55px;
+        left: 30px;
       }
       .nextDays {
         margin: 0 auto;
         padding-bottom: 30px;
+        padding-top: 30px;
         text-align: center;
         width: 1000px;
       }
@@ -145,7 +146,7 @@
         background-color: white;
         border-radius: 50px;
         display: block;
-        height: 830px;
+        height: 750px;
         margin: 30px auto;
 
         width: 1200px;
@@ -223,47 +224,62 @@
           <li class="col">
             <h4>Tomorrow</h4>
             <img
+              id="nextDay1Icon"
               class="nextDaysIcon"
               width="100px"
               src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/018/762/original/cloudy_%281%29.png?1634029809"
             />
-            <div class="nextDaysTemperature">25°C</div>
+            <div class="nextDaysTemperature">
+              <span id="nextDay1Temperature"></span>°C
+            </div>
           </li>
           <li class="col">
-            <h4>Monday</h4>
+            <h4 id="nextDay2"></h4>
             <img
               class="nextDaysIcon"
+              id="nextDay2Icon"
               width="100px"
               src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/018/762/original/cloudy_%281%29.png?1634029809"
             />
-            <div class="nextDaysTemperature">24°C</div>
+            <div class="nextDaysTemperature">
+              <span id="nextDay2Temperature"></span>°C
+            </div>
           </li>
           <li class="col">
-            <h4>Tuesday</h4>
+            <h4 id="nextDay3"></h4>
             <img
               class="nextDaysIcon"
+              id="nextDay3Icon"
               width="100px"
               src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/018/761/original/cloudy.png?1634029806"
             />
-            <div class="nextDaysTemperature">15°C</div>
+            <div class="nextDaysTemperature">
+              <span id="nextDay3Temperature"></span>°C
+            </div>
           </li>
           <li class="col">
-            <h4>Wednesday</h4>
+            <h4 id="nextDay4"></h4>
             <img
               class="nextDaysIcon"
+              id="nextDay4Icon"
               width="100px"
               src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/018/760/original/sun_%281%29.png?1634029803"
             />
-            <div class="nextDaysTemperature">14°C</div>
+            <div class="nextDaysTemperature">
+              <span id="nextDay4Temperature"></span>°C
+            </div>
           </li>
           <li class="col">
-            <h4>Thursday</h4>
+            <h4 id="nextDay5"></h4>
             <img
               class="nextDaysIcon"
+              id="nextDay5Icon"
               width="100px"
               src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/018/760/original/sun_%281%29.png?1634029803"
             />
-            <div class="nextDaysTemperature">20°C</div>
+            <div class="nextDaysTemperature">
+              <span id="nextDay5Temperature"></span>°C
+            </div>
           </li>
         </ul>
       </div>
@@ -292,6 +308,13 @@
         "Thursday",
         "Friday",
         "Saturday",
+        "Sunday",
+        "Monday",
+        "Tueday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
       ];
       todayDay.innerHTML = `${weekdays[now.getDay()]}`;
 
@@ -304,6 +327,15 @@
       } else if (minutes < 10 && hours < 10) {
         todayTime.innerHTML = `0${hours}:0${minutes}`;
       }
+
+      let nextDay2 = document.querySelector("#nextDay2");
+      nextDay2.innerHTML = `${weekdays[now.getDay() + 2]}`;
+      let nextDay3 = document.querySelector("#nextDay3");
+      nextDay3.innerHTML = `${weekdays[now.getDay() + 3]}`;
+      let nextDay4 = document.querySelector("#nextDay4");
+      nextDay4.innerHTML = `${weekdays[now.getDay() + 4]}`;
+      let nextDay5 = document.querySelector("#nextDay5");
+      nextDay5.innerHTML = `${weekdays[now.getDay() + 5]}`;
 
       //Section: Searched city info in the main panel
       function showCurrentTemperature(response) {
@@ -367,10 +399,6 @@
             "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/019/520/original/fog_1f32b-fe0f.png?1634914218"
           );
         }
-        //weatherTodayIcon.setAttribute(
-        //"src",
-        //`https://openweathermap.org/img/wn/${currentIcon}@2x.png`
-        //);
       }
 
       function showCityData(event) {
@@ -454,10 +482,7 @@
             "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/019/520/original/fog_1f32b-fe0f.png?1634914218"
           );
         }
-        //weatherTodayIcon.setAttribute(
-        //"src",
-        //`https://openweathermap.org/img/wn/${currentIcon}@2x.png`
-        //);
+
         let h2 = document.querySelector("h2");
         h2.innerHTML = response.data.name;
       }
@@ -487,6 +512,16 @@
       }
       let temperatureC = document.querySelector("#temperatureC");
       temperatureC.addEventListener("click", changeTemperatureC);
+
+      //////
+
+      function bla1(response) {
+        console.log(response);
+      }
+
+      let bla =
+        "https://api.openweathermap.org/data/2.5/onecall?lat=41.390205&lon=	2.154007&appid=b629dca764bb5f25acefd410cd7cab85&units=metric";
+      axios.get(bla).then(bla1);
     </script>
   </body>
 </html>
