@@ -18,7 +18,7 @@
         background: linear-gradient(
           181.2deg,
           rgb(181, 239, 249) 10.5%,
-          rgb(254, 254, 254) 86.8%
+          rgba(181, 239, 249, 0.1) 86.8%
         );
       }
       h1 {
@@ -30,6 +30,7 @@
       h2 {
         font-size: 60px;
         font-weight: bold;
+
         margin-bottom: 10px;
         padding-top: 30px;
         text-align: center;
@@ -55,12 +56,10 @@
         margin: 0 auto;
       }
       .enterCity {
-        display: inline-block;
-
+        display: block;
         padding-left: 110px;
         padding-right: 40px;
         padding-top: 60px;
-        width: 700px;
       }
       .mainPanel {
         margin: 0 auto;
@@ -78,6 +77,7 @@
       }
       .nextDays {
         margin: 0 auto;
+        padding-bottom: 30px;
         text-align: center;
         width: 1000px;
       }
@@ -89,15 +89,16 @@
         font-size: 25px;
         font-weight: bold;
         margin: 40px;
+
         text-align: center;
       }
       .signature {
         display: block;
-        margin-bottom: 40px;
-        margin-top: 60px;
+        margin-bottom: 30px;
+        margin-top: 30px;
         text-align: center;
       }
-      .todayIcon {
+      #todayIcon {
         display: inline-block;
         margin-top: 30px;
       }
@@ -122,9 +123,9 @@
         background-color: white;
         border-radius: 50px;
         display: block;
-        height: 750px;
+        height: 880px;
         margin: 30px auto;
-        margin-bottom: 120px;
+
         width: 1200px;
       }
       #currentButton {
@@ -145,6 +146,8 @@
               id="cityInput"
               aria-describedby="emailHelp"
               placeholder="Enter a city"
+              width="100"
+              ;
             />
             <button type="submit" class="btn btn-primary">Search</button>
           </div>
@@ -152,10 +155,11 @@
         <button type="button" class="btn btn-primary" id="currentButton">
           Current location
         </button>
+
         <div class="row mainPanel">
           <div class="col mainLeft">
             <img
-              class="todayIcon"
+              id="todayIcon"
               src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/018/760/original/sun_%281%29.png?1634029803"
               width="150px"
             />
@@ -181,7 +185,7 @@
             ><span id="humidityNumber"></span>%<br /><strong>Pressure: </strong>
             <span id="pressureNumber"></span> hPa<br /><strong
               >Wind speed: </strong
-            ><span id="windNumber"></span> m/s
+            ><span id="windNumber"></span> km/h
           </div>
         </div>
         <hr />
@@ -245,6 +249,9 @@
     <script>
       //Section: Current time and date
       let now = new Date();
+
+      let hours = now.getHours();
+      let minutes = now.getMinutes();
       let todayDay = document.querySelector("#todayDay");
       let todayTime = document.querySelector("#todayTime");
       let weekdays = [
@@ -257,26 +264,42 @@
         "Saturday",
       ];
       todayDay.innerHTML = `${weekdays[now.getDay()]}`;
-      todayTime.innerHTML = `${now.getHours()}:${now.getMinutes()}`;
+
+      if (minutes > 9 && hours > 9) {
+        todayTime.innerHTML = `${hours}:${minutes}`;
+      } else if (minutes > 9 && hours < 10) {
+        todayTime.innerHTML = `0${hours}:${minutes}`;
+      } else if (minutes < 10 && hours > 9) {
+        todayTime.innerHTML = `${hours}:0${minutes}`;
+      } else if (minutes < 10 && hours < 10) {
+        todayTime.innerHTML = `0${hours}:0${minutes}`;
+      }
 
       //Section: Searched city info in the main panel
       function showCurrentTemperature(response) {
+        console.log(response.data);
         let currentTemperature = Math.round(response.data.main.temp);
-        //let currentWeather = response.data.weather.0.main;
+        let currentWeather = response.data.weather[0].main;
+        let currentIcon = response.data.weather[0].icon;
         let currentHumidity = Math.round(response.data.main.humidity);
         let currentPressure = Math.round(response.data.main.pressure);
         let currentWind = Math.round(response.data.wind.speed);
         let temperatureTodayValue =
           document.querySelector("#temperatureNumber");
-        temperatureTodayValue.innerHTML = `${currentTemperature}`;
-        //let weatherTodayWord = document.querySelector("#currentWeather");
-        // weatherTodayWord.innerHTML = `${currentWeather}`;
+        temperatureTodayValue.innerHTML = `${currentTemperature} `;
+        let weatherTodayWord = document.querySelector("#currentWeather");
+        weatherTodayWord.innerHTML = `${currentWeather}`;
         let humidityTodayValue = document.querySelector("#humidityNumber");
         humidityTodayValue.innerHTML = `${currentHumidity}`;
         let pressureTodayValue = document.querySelector("#pressureNumber");
         pressureTodayValue.innerHTML = `${currentPressure}`;
         let windTodayValue = document.querySelector("#windNumber");
         windTodayValue.innerHTML = `${currentWind}`;
+        let weatherTodayIcon = document.querySelector("#todayIcon");
+        weatherTodayIcon.setAttribute(
+          "src",
+          `https://openweathermap.org/img/wn/${currentIcon}@2x.png`
+        );
       }
 
       function showCityData(event) {
@@ -300,21 +323,28 @@
 
       function showCurrentCityData1(response) {
         let currentTemperature = Math.round(response.data.main.temp);
-        //let currentWeather = response.data.weather.0.main;
+
+        let currentWeather = response.data.weather[0].main;
+        let currentIcon = response.data.weather[0].icon;
         let currentHumidity = Math.round(response.data.main.humidity);
         let currentPressure = Math.round(response.data.main.pressure);
         let currentWind = Math.round(response.data.wind.speed);
         let temperatureTodayValue =
           document.querySelector("#temperatureNumber");
-        temperatureTodayValue.innerHTML = `${currentTemperature}`;
-        //let weatherTodayWord = document.querySelector("#currentWeather");
-        // weatherTodayWord.innerHTML = `${currentWeather}`;
+        temperatureTodayValue.innerHTML = `${currentTemperature} `;
+        let weatherTodayWord = document.querySelector("#currentWeather");
+        weatherTodayWord.innerHTML = `${currentWeather}`;
         let humidityTodayValue = document.querySelector("#humidityNumber");
         humidityTodayValue.innerHTML = `${currentHumidity}`;
         let pressureTodayValue = document.querySelector("#pressureNumber");
         pressureTodayValue.innerHTML = `${currentPressure}`;
         let windTodayValue = document.querySelector("#windNumber");
         windTodayValue.innerHTML = `${currentWind}`;
+        let weatherTodayIcon = document.querySelector("#todayIcon");
+        weatherTodayIcon.setAttribute(
+          "src",
+          `https://openweathermap.org/img/wn/${currentIcon}@2x.png`
+        );
         let h2 = document.querySelector("h2");
         h2.innerHTML = response.data.name;
       }
@@ -326,6 +356,7 @@
       let currentButton = document.querySelector("#currentButton");
       currentButton.addEventListener("click", getLocation);
 
+      // Section: Switching temperature units
       // function changeTemperatureF() {
       //  let temperatureNumber = document.querySelector("#temperatureNumber");
       //  temperatureNumber.innerHTML = "77 ";
@@ -333,12 +364,12 @@
       // let temperatureF = document.querySelector("#temperatureF");
       // temperatureF.addEventListener("click", changeTemperatureF);
 
-      // function changeTemperatureC() {
-      //   let temperatureNumber = document.querySelector("#temperatureNumber");
-      //   temperatureNumber.innerHTML = "25 ";
-      // }
-      // let temperatureC = document.querySelector("#temperatureC");
-      // temperatureC.addEventListener("click", changeTemperatureC);
+      //function changeTemperatureC() {
+      //let temperatureNumber = document.querySelector("#temperatureNumber");
+      //temperatureNumber.innerHTML = "25 ";
+      //}
+      //let temperatureC = document.querySelector("#temperatureC");
+      //temperatureC.addEventListener("click", changeTemperatureC);
     </script>
   </body>
 </html>
