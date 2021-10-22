@@ -43,6 +43,17 @@
         padding-bottom: 15px;
         text-align: center;
       }
+      button {
+        background-color: rgb(181, 239, 249);
+        border: solid 0px;
+        border-radius: 30px;
+        color: white;
+        display: inline-block;
+        font-size: 20px;
+        font-weight: bold;
+        height: 50px;
+        text-align: center;
+      }
       hr {
         background: black;
         border: 2px solid black;
@@ -50,13 +61,16 @@
 
         width: 1000px;
       }
+      form {
+        display: inline-block;
+      }
       ul {
         display: block;
         list-style: none;
         margin: 0 auto;
       }
       .enterCity {
-        display: block;
+        display: block-inline;
         padding-left: 110px;
         padding-right: 40px;
         padding-top: 60px;
@@ -128,9 +142,18 @@
 
         width: 1200px;
       }
+      #cityInput {
+        height: 50px;
+        margin-right: 30px;
+        width: 400px;
+      }
       #currentButton {
         display: inline-block;
-        margin-left: 110px;
+        margin-left: 30px;
+        width: 300px;
+      }
+      #submitButton {
+        width: 150px;
       }
     </style>
   </head>
@@ -139,22 +162,22 @@
       <h1>Weather forecast</h1>
       <div class="whiteBox">
         <form>
-          <div class="mb-3 enterCity">
+          <div class="mb-3 enterCity row">
             <input
               type="text"
-              class="form-control"
               id="cityInput"
+              class="col-4"
               aria-describedby="emailHelp"
               placeholder="Enter a city"
               width="100"
               ;
             />
-            <button type="submit" class="btn btn-primary">Search</button>
+            <button type="submit" class="col-2" id="submitButton">
+              Search
+            </button>
           </div>
         </form>
-        <button type="button" class="btn btn-primary" id="currentButton">
-          Current location
-        </button>
+        <button type="button" id="currentButton">Current location</button>
 
         <div class="row mainPanel">
           <div class="col mainLeft">
