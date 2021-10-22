@@ -137,7 +137,7 @@
         background-color: white;
         border-radius: 50px;
         display: block;
-        height: 880px;
+        height: 830px;
         margin: 30px auto;
 
         width: 1200px;
@@ -300,8 +300,8 @@
 
       //Section: Searched city info in the main panel
       function showCurrentTemperature(response) {
-        console.log(response.data);
-        let currentTemperature = Math.round(response.data.main.temp);
+        celsiusTemperature = response.data.main.temp;
+        let currentTemperature = Math.round(celsiusTemperature);
         let currentWeather = response.data.weather[0].main;
         let currentIcon = response.data.weather[0].icon;
         let currentHumidity = Math.round(response.data.main.humidity);
@@ -345,7 +345,8 @@
       }
 
       function showCurrentCityData1(response) {
-        let currentTemperature = Math.round(response.data.main.temp);
+        celsiusTemperature = response.data.main.temp;
+        let currentTemperature = Math.round(celsiusTemperature);
 
         let currentWeather = response.data.weather[0].main;
         let currentIcon = response.data.weather[0].icon;
@@ -379,20 +380,24 @@
       let currentButton = document.querySelector("#currentButton");
       currentButton.addEventListener("click", getLocation);
 
-      // Section: Switching temperature units
-      // function changeTemperatureF() {
-      //  let temperatureNumber = document.querySelector("#temperatureNumber");
-      //  temperatureNumber.innerHTML = "77 ";
-      //  }
-      // let temperatureF = document.querySelector("#temperatureF");
-      // temperatureF.addEventListener("click", changeTemperatureF);
+      //Section: Switching temperature units
+      function changeTemperatureF() {
+        let temperatureNumber = document.querySelector("#temperatureNumber");
+        let fahrenheitTemperature = Math.round(
+          (celsiusTemperature * 9) / 5 + 32
+        );
+        temperatureNumber.innerHTML = `${fahrenheitTemperature} `;
+      }
+      let celsiusTemperature = null;
+      let temperatureF = document.querySelector("#temperatureF");
+      temperatureF.addEventListener("click", changeTemperatureF);
 
-      //function changeTemperatureC() {
-      //let temperatureNumber = document.querySelector("#temperatureNumber");
-      //temperatureNumber.innerHTML = "25 ";
-      //}
-      //let temperatureC = document.querySelector("#temperatureC");
-      //temperatureC.addEventListener("click", changeTemperatureC);
+      function changeTemperatureC() {
+        let temperatureNumber = document.querySelector("#temperatureNumber");
+        temperatureNumber.innerHTML = `${Math.round(celsiusTemperature)} `;
+      }
+      let temperatureC = document.querySelector("#temperatureC");
+      temperatureC.addEventListener("click", changeTemperatureC);
     </script>
   </body>
 </html>
