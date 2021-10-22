@@ -31,11 +31,11 @@
         font-size: 60px;
         font-weight: bold;
 
-        margin-bottom: 10px;
         padding-top: 30px;
         text-align: center;
       }
       h3 {
+        padding-top: 50px;
         text-align: center;
       }
       h4 {
@@ -53,6 +53,10 @@
         font-weight: bold;
         height: 50px;
         text-align: center;
+        transition: all 400ms ease-in-out;
+      }
+      button:hover {
+        background-color: rgb(105, 224, 245);
       }
       hr {
         background: black;
@@ -77,7 +81,6 @@
       }
       .mainPanel {
         margin: 0 auto;
-        padding-top: 30px;
 
         width: 950px;
       }
@@ -130,7 +133,7 @@
         text-align: center;
       }
       .unitChange {
-        color: rgb(120, 157, 163);
+        color: rgb(105, 224, 245);
         text-decoration: none;
       }
       .whiteBox {
@@ -178,7 +181,7 @@
           </div>
         </form>
         <button type="button" id="currentButton">Current location</button>
-
+        <h2>Choose a city</h2>
         <div class="row mainPanel">
           <div class="col mainLeft">
             <img
@@ -196,7 +199,6 @@
             </div>
           </div>
           <div class="col mainMiddle">
-            <h2>Choose<br />a city</h2>
             <h3>Today</h3>
             <div class="todayTimeInfo">
               <span id="todayDay">Day</span>
