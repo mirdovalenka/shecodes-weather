@@ -30,11 +30,11 @@
       h2 {
         font-size: 60px;
         font-weight: bold;
-
-        padding-top: 30px;
+        padding-top: 15px;
         text-align: center;
       }
       h3 {
+        font-weight: bold;
         padding-top: 50px;
         text-align: center;
       }
@@ -81,7 +81,8 @@
       }
       .mainPanel {
         margin: 0 auto;
-
+        position: relative;
+        bottom: 20px;
         width: 950px;
       }
 
@@ -133,8 +134,12 @@
         text-align: center;
       }
       .unitChange {
-        color: rgb(105, 224, 245);
+        color: rgb(181, 239, 249);
         text-decoration: none;
+        transition: all 400ms ease-in-out;
+      }
+      .unitChange:hover {
+        color: rgb(105, 224, 245);
       }
       .whiteBox {
         background-color: white;
@@ -186,7 +191,7 @@
           <div class="col mainLeft">
             <img
               id="todayIcon"
-              src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/018/760/original/sun_%281%29.png?1634029803"
+              src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/019/515/original/sun_2600-fe0f.png?1634913106"
               width="150px"
             />
             <div class="todayTemperature">
@@ -321,10 +326,51 @@
         let windTodayValue = document.querySelector("#windNumber");
         windTodayValue.innerHTML = `${currentWind}`;
         let weatherTodayIcon = document.querySelector("#todayIcon");
-        weatherTodayIcon.setAttribute(
-          "src",
-          `https://openweathermap.org/img/wn/${currentIcon}@2x.png`
-        );
+        if (currentWeather === "Clear") {
+          weatherTodayIcon.setAttribute(
+            "src",
+            "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/019/515/original/sun_2600-fe0f.png?1634913106"
+          );
+        } else if (currentWeather === "Clouds") {
+          weatherTodayIcon.setAttribute(
+            "src",
+            "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/019/516/original/sun-behind-cloud_26c5.png?1634913511"
+          );
+        } else if (currentWeather === "Rain" || currentWeather === "Drizzle") {
+          weatherTodayIcon.setAttribute(
+            "src",
+            "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/019/517/original/cloud-with-rain_1f327-fe0f.png?1634913923"
+          );
+        } else if (currentWeather === "Thunderstorm") {
+          weatherTodayIcon.setAttribute(
+            "src",
+            "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/019/518/original/cloud-with-lightning_1f329-fe0f.png?1634913981"
+          );
+        } else if (currentWeather === "Snow") {
+          weatherTodayIcon.setAttribute(
+            "src",
+            "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/019/519/original/snowflake_2744-fe0f.png?1634914104"
+          );
+        } else if (
+          currentWeather === "Mist" ||
+          currentWeather === "Smoke" ||
+          currentWeather === "Haze" ||
+          currentWeather === "Dust" ||
+          currentWeather === "Fog" ||
+          currentWeather === "Sand" ||
+          currentWeather === "Ash" ||
+          currentWeather === "Squall" ||
+          currentWeather === "Tornado"
+        ) {
+          weatherTodayIcon.setAttribute(
+            "src",
+            "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/019/520/original/fog_1f32b-fe0f.png?1634914218"
+          );
+        }
+        //weatherTodayIcon.setAttribute(
+        //"src",
+        //`https://openweathermap.org/img/wn/${currentIcon}@2x.png`
+        //);
       }
 
       function showCityData(event) {
@@ -367,10 +413,51 @@
         let windTodayValue = document.querySelector("#windNumber");
         windTodayValue.innerHTML = `${currentWind}`;
         let weatherTodayIcon = document.querySelector("#todayIcon");
-        weatherTodayIcon.setAttribute(
-          "src",
-          `https://openweathermap.org/img/wn/${currentIcon}@2x.png`
-        );
+        if (currentWeather === "Clear") {
+          weatherTodayIcon.setAttribute(
+            "src",
+            "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/019/515/original/sun_2600-fe0f.png?1634913106"
+          );
+        } else if (currentWeather === "Clouds") {
+          weatherTodayIcon.setAttribute(
+            "src",
+            "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/019/516/original/sun-behind-cloud_26c5.png?1634913511"
+          );
+        } else if (currentWeather === "Rain" || currentWeather === "Drizzle") {
+          weatherTodayIcon.setAttribute(
+            "src",
+            "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/019/517/original/cloud-with-rain_1f327-fe0f.png?1634913923"
+          );
+        } else if (currentWeather === "Thunderstorm") {
+          weatherTodayIcon.setAttribute(
+            "src",
+            "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/019/518/original/cloud-with-lightning_1f329-fe0f.png?1634913981"
+          );
+        } else if (currentWeather === "Snow") {
+          weatherTodayIcon.setAttribute(
+            "src",
+            "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/019/519/original/snowflake_2744-fe0f.png?1634914104"
+          );
+        } else if (
+          currentWeather === "Mist" ||
+          currentWeather === "Smoke" ||
+          currentWeather === "Haze" ||
+          currentWeather === "Dust" ||
+          currentWeather === "Fog" ||
+          currentWeather === "Sand" ||
+          currentWeather === "Ash" ||
+          currentWeather === "Squall" ||
+          currentWeather === "Tornado"
+        ) {
+          weatherTodayIcon.setAttribute(
+            "src",
+            "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/019/520/original/fog_1f32b-fe0f.png?1634914218"
+          );
+        }
+        //weatherTodayIcon.setAttribute(
+        //"src",
+        //`https://openweathermap.org/img/wn/${currentIcon}@2x.png`
+        //);
         let h2 = document.querySelector("h2");
         h2.innerHTML = response.data.name;
       }
